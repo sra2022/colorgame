@@ -15,9 +15,20 @@ body {
 header,footer {
 	padding:20px;
 }
+header h1 {
+	color:#8080ff;
+}
+header p {
+	color:#ff8000;
+}
 a {
 	text-decoration:none;
-	color:#dfdfdf;
+	color:#ff8000;
+}
+.icon {
+	width:32px;
+	height:32px;
+	animation:anim 5s linear infinite normal;
 }
 #main {
 	display:flex;
@@ -78,7 +89,14 @@ a {
 	top:200px;
 	background-color:#45546f;
 	border-radius:20px;
-	border:solid #dfdfdf 1px;
+	border:solid #000 1px;
+}
+@keyframes anim {
+	0% {transform:rotate(0deg);}
+	25% {transform:rotate(90deg);}
+	50% {transform:rotate(180deg);}
+	75% {transform:rotate(270deg);}
+	100 {transform:rotate(360deg);}
 }
 @media(min-width:500px) {
 	#main {
