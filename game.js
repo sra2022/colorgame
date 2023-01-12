@@ -1,4 +1,5 @@
 let unique_square;
+let global_score=0;
 let end_time;
 let audio1=new Audio("assets/correct.mp3");
 let audio2=new Audio("assets/wrong.mp3");
@@ -35,6 +36,14 @@ function draw_squares(unique)
 	let r=Math.floor(Math.random()*225)+50;
 	let g=Math.floor(Math.random()*225)+50;
 	let b=Math.floor(Math.random()*225)+50;
+	let random=Math.floor(Math.random()*2);
+	let difference=10;
+	if(global_score<5) difference=20;	
+	else if(global_score<10) difference=15;
+	else if(global_score<15) difference=14;
+	else if(global_score<20) difference=13;
+	else if(global_score<25) difference=12;
+	else if(global_score<30) difference=11;
 	const game_box=document.getElementById("game-box");
 	game_box.style.display="flex";
 	for(let i=1;i<=36;i++)
@@ -42,8 +51,10 @@ function draw_squares(unique)
 		const square=document.createElement("div");
 		square.setAttribute("class","square");
 		square.style.backgroundColor="rgb("+r+","+g+","+b+")";
-		if(unique==i)
-			square.style.backgroundColor="rgb("+(r-10)+","+(g-10)+","+(b-10)+")";
+		if(unique==i && random==0)
+			square.style.backgroundColor="rgb("+(r-difference)+","+(g-difference)+","+(b-difference)+")";
+		if(unique==i && random==1)
+			square.style.backgroundColor="rgb("+(r+difference)+","+(g+difference)+","+(b+difference)+")";
 		square.setAttribute("onclick","check_answer("+i+")");
 		game_box.appendChild(square);
 	}
@@ -91,6 +102,7 @@ function check_answer(answer)
 		audio1.play();
 		let old_score=document.getElementById("score").innerHTML;
 		let new_score=parseInt(old_score)+1;
+		global_score=new_score;
 		document.getElementById("score").innerHTML=new_score;
 		if(end_time<Date.now())
 			time_over();
@@ -129,5 +141,6 @@ function hide_message_and_quit()
 function restart_game()
 {
 	document.getElementById("score").innerHTML="0";
+	global_score=0;
 	start_game();
 }
