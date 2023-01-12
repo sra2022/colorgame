@@ -1,5 +1,7 @@
 let unique_square;
 let end_time;
+let audio1=new Audio("assets/correct.mp3");
+let audio2=new Audio("assets/wrong.mp3");
 
 function setup()
 {
@@ -24,8 +26,8 @@ function start_game()
 
 function time_over()
 {
-	quit_game();
-	alert("Time Over");
+	audio2.play();
+	show_message("Time Over");
 }
 
 function draw_squares(unique)
@@ -70,7 +72,7 @@ function quit_game()
 {
 	clean_game();
 	const button1=document.getElementById("button1");
-	button1.innerHTML="Restart";
+	button1.innerHTML="Start";
 	button1.setAttribute("onclick","restart_game()");
 	document.getElementById("game-box").style.display="none";
 }
@@ -86,6 +88,7 @@ function check_answer(answer)
 {
 	if(answer==unique_square)
 	{
+		audio1.play();
 		let old_score=document.getElementById("score").innerHTML;
 		let new_score=parseInt(old_score)+1;
 		document.getElementById("score").innerHTML=new_score;
@@ -99,9 +102,28 @@ function check_answer(answer)
 	}
 	else
 	{
-		alert("wrong");
-		quit_game();
+		audio2.play();
+		show_message("Wrong");
 	}
+}
+
+function show_message(text)
+{
+	let message=document.createElement("div");
+	message.innerHTML=text;
+	message.setAttribute("id","message");
+	document.getElementById("main").appendChild(message);
+	let my_button=document.createElement("button");
+	my_button.setAttribute("class","button");
+	my_button.innerHTML="Close";
+	my_button.setAttribute("onclick","hide_message_and_quit()");
+	message.appendChild(my_button);
+}
+
+function hide_message_and_quit()
+{
+	document.getElementById("message").remove();
+	quit_game();
 }
 
 function restart_game()
