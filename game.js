@@ -7,6 +7,10 @@ let audio2=new Audio("assets/wrong.mp3");
 function setup()
 {
 	const controls=document.getElementById("controls");
+	const message=document.createElement("div");
+	message.id="message"
+	message.innerHTML="Ready to Play";
+	controls.appendChild(message);
 	const start_button=document.createElement("button");
 	start_button.innerHTML="Start";
 	start_button.setAttribute("class","button");
@@ -17,18 +21,14 @@ function setup()
 
 function start_game()
 {
+	clean_game();
+	hide_message();
 	let unique=Math.floor(Math.random()*36)+1;
 	unique_square=unique;
 	draw_squares(unique);
 	draw_score();
 	change_button();
 	end_time=Date.now()+3000;
-}
-
-function time_over()
-{
-	audio2.play();
-	show_message("Time Over");
 }
 
 function draw_squares(unique)
@@ -60,10 +60,19 @@ function draw_squares(unique)
 	}
 }
 
+function show_message(text)
+{
+	const message=document.getElementById("message");
+	message.style.color="#ff0000";
+	message.style.display="block";
+	message.innerHTML=text;
+
+}
+
 function draw_score()
 {
 	const controls=document.getElementById("controls");
-	if(controls.childNodes.length==2)
+	if(controls.childNodes.length==3)
 	{
 	const score=document.createElement("div");
 	score.setAttribute("id","score");
@@ -105,37 +114,25 @@ function check_answer(answer)
 		global_score=new_score;
 		document.getElementById("score").innerHTML=new_score;
 		if(end_time<Date.now())
-			time_over();
-		else
 		{
-			clean_game();
-			start_game();
+			quit_game();
+			audio2.play();
+			show_message("Time over");
 		}
+		else
+			start_game();
 	}
 	else
 	{
+		quit_game();
 		audio2.play();
 		show_message("Wrong");
 	}
 }
 
-function show_message(text)
+function hide_message()
 {
-	let message=document.createElement("div");
-	message.innerHTML=text;
-	message.setAttribute("id","message");
-	document.getElementById("main").appendChild(message);
-	let my_button=document.createElement("button");
-	my_button.setAttribute("class","button");
-	my_button.innerHTML="Close";
-	my_button.setAttribute("onclick","hide_message_and_quit()");
-	message.appendChild(my_button);
-}
-
-function hide_message_and_quit()
-{
-	document.getElementById("message").remove();
-	quit_game();
+	document.getElementById("message").style.display="none";
 }
 
 function restart_game()

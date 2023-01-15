@@ -13,7 +13,7 @@ body {
 	color:#dfdfdf;
 }
 header,footer {
-	padding:20px;
+	padding:10px;
 }
 header h1 {
 	color:#8080ff;
@@ -58,6 +58,7 @@ a {
 	flex-direction:column;
 	align-items:center;
 	justify-content:space-around;
+	gap:20px;
 }
 .button {
 	width:100px;
@@ -69,7 +70,6 @@ a {
 }
 #score {
 	width:100px;
-	margin-bottom:20px;
 	height:30px;
 	font-size:32px;
 	color:#fff;
@@ -78,18 +78,7 @@ a {
 	justify-content:center;
 }
 #message {
-	width:200px;
-	height:100px;
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-	justify-content:center;
-	gap:20px;
-	position:absolute;
-	top:200px;
-	background-color:#45546f;
-	border-radius:20px;
-	border:solid #000 1px;
+	color:green;
 }
 @keyframes anim {
 	0% {transform:rotate(0deg);}
