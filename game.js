@@ -33,9 +33,9 @@ function start_game()
 
 function draw_squares(unique)
 {
-	let r=Math.floor(Math.random()*225)+50;
-	let g=Math.floor(Math.random()*225)+50;
-	let b=Math.floor(Math.random()*225)+50;
+	let r=Math.floor(Math.random()*176)+50;
+	let g=Math.floor(Math.random()*176)+50;
+	let b=Math.floor(Math.random()*176)+50;
 	let random=Math.floor(Math.random()*2);
 	let difference=10;
 	if(global_score<5) difference=20;	
