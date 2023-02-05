@@ -1,8 +1,8 @@
 let uniqueSquare;
 let globalScore=0;
-let endTime;
 let audio1=new Audio("assets/correct.mp3");
 let audio2=new Audio("assets/wrong.mp3");
+let timeOut;
 
 window.onload=()=> {
 	const controls=document.getElementById("controls");
@@ -26,7 +26,11 @@ function startGame() {
 	drawSquares(unique);
 	drawScore();
 	changeButton();
-	endTime=Date.now()+3000;
+	timeOut=setTimeout(()=> {
+		quitGame();
+		audio2.play();
+		showMessage("Time over");
+	},3000);
 }
 
 function drawSquares(unique) {
@@ -100,17 +104,14 @@ function checkAnswer(answer) {
 		let newScore=parseInt(oldScore)+1;
 		globalScore=newScore;
 		document.getElementById("score").innerHTML=newScore;
-		if(endTime<Date.now()) {
-			quitGame();
-			audio2.play();
-			showMessage("Time over");
-		}
-		else startGame();
+		clearTimeout(timeOut);
+		startGame();
 	}
 	else {
 		quitGame();
 		audio2.play();
 		showMessage("Wrong");
+		clearTimeout(timeOut);
 	}
 }
 
